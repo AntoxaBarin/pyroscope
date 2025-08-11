@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package fuzz;
+
+
+import "google/v1/profile.proto";
+import "types/v1/types.proto";
+
+
+
+// todo generate/sync from overrides
+message Limits {
+  float IngestionRateMB = 1;
+  float IngestionBurstSizeMB = 2;
+  int64 MaxLabelNameLength = 3;
+  int64 MaxLabelValueLength = 4;
+  int64 MaxLabelNamesPerSeries = 5;
+  int64 MaxSessionsPerSeries = 6;
+  bool EnforceLabelsOrder = 7;
+  int64 MaxProfileSizeBytes = 8;
+  int64 MaxProfileStacktraceSamples = 9;
+  int64 MaxProfileStacktraceSampleLabels = 10;
+  int64 MaxProfileStacktraceDepth = 11;
+  int64 MaxProfileSymbolValueLength = 12;
+
+  IngestLimitsConfig  IngestionLimit = 13; 
+  //      DistributorSampling    *sampling.Config
+}
+message IngestLimitsConfig {
+  string PeriodType = 1;
+  int64 PeriodLimitMb = 2;
+  int64 LimitResetTime = 3;
+  bool LimitReached = 4;
+  IngestLimitsSamplingConfig Sampling = 5;
+  map<string, UsageGroup> UsageGroups = 6;
+}
+
+message IngestLimitsSamplingConfig {
+  int32 NumRequests = 1;
+  int32 PeriodMillis = 2;
+}
+
+message UsageGroup {
+  int64 PeriodLimitMb = 1;
+  bool LimitReached = 2;
+}
