@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package distributor.fuzz;
+
+
+import "google/v1/profile.proto";
+
+message FuzzMessage {
+  google.v1.Profile profile = 1;
+}
